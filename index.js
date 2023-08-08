@@ -1,62 +1,67 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('registration-form');
-    const dataTable = document.getElementById('data-table').querySelector('tbody');
-  
-    // Load saved form values from local storage
-    const savedName = localStorage.getItem('name') || '';
-    const savedEmail = localStorage.getItem('email') || '';
-    const savedDob = localStorage.getItem('dob') || '';
-  
-    document.getElementById('name').value = savedName;
-    document.getElementById('email').value = savedEmail;
-    document.getElementById('dob').value = savedDob;
-  
-    // Load saved table data from local storage
-    const savedTableData = JSON.parse(localStorage.getItem('tableData')) || [];
-  
-    // Populate table with saved data
-    savedTableData.forEach(data => {
-      const newRow = dataTable.insertRow();
-      newRow.innerHTML = `<td>${data.name}</td><td>${data.email}</td><td>${data.password}</td><td>${data.dob}</td><td>${data.acceptTerms ? 'Yes' : 'No'}</td>`;
-    });
-  
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-  
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const dob = document.getElementById('dob').value;
-      const acceptTerms = document.getElementById('accept-terms').checked;
-  
-      const age = calculateAge(dob);
-      if (age >= 18 && age <= 55 && acceptTerms) {
-        const newRow = dataTable.insertRow();
-        newRow.innerHTML = `<td>${name}</td><td>${email}</td><td>${password}</td><td>${dob}</td><td>${acceptTerms ? 'Yes' : 'No'}</td>`;
-  
-        // Save form values to local storage
-        localStorage.setItem('name', name);
-        localStorage.setItem('email', email);
-        localStorage.setItem('dob', dob);
-  
-        // Save table data to local storage
-        const newData = { name, email, password, dob, acceptTerms };
-        savedTableData.push(newData);
-        localStorage.setItem('tableData', JSON.stringify(savedTableData));
-      } else {
-        alert('Please make sure your age is between 18 and 55 and you have accepted the terms.');
-      }
-    });
-  
-    function calculateAge(dob) {
-      const today = new Date();
-      const birthDate = new Date(dob);
-      const age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        return age - 1;
-      }
-      return age;
+let userForm = document.getElementById("user-form");
+let userEntries=[];
+const retrieveEntries = ()=>{
+    let entries = localStorage.getItem('userEntries');
+    if(entries){
+        entries=JSON.parse(entries);
+    }else{
+        entries=[];
     }
-  });
-  
+    return entries;
+};
+const displayEntries = () => {
+  let entries = retrieveEntries();
+  const tableEntries = entries
+    .map((input) => {
+      const namedata = `<td class='border px-4 py-2'>${input.FullName}</td>`;
+      const emaildata = `<td class='border px-4 py-2'>${input.email}</td>`;
+      const passworddata = `<td class='border px-4 py-2'>${input.password}</td>`;
+      const dobdata = `<td class='border px-4 py-2'>${input.dob}</td>`;
+      const termsdata = `<td class='border px-4 py-2'>${input.terms}</td>`;
+      const row = `<tr>${namedata} ${emaildata} ${passworddata} ${dobdata} ${termsdata}</tr>`;
+      return row;
+    })
+    .join('\n');
+  const tableBody = document.querySelector('#user-entries tbody');
+  tableBody.innerHTML = tableEntries; // Add the table entries to the <tbody> element
+};
+
+
+const saveUserForm = (event)=>{
+event.preventDefault();
+const FullName = document.getElementById('name').value
+const email = document.getElementById('email').value
+const password = document.getElementById('password').value
+const dob = document.getElementById('dob').value
+const terms = document.getElementById('acceptTerms').checked
+var currentYear = new Date().getFullYear();
+var birthYear = dob.split("-");
+let year=birthYear[0]
+var age = currentYear-year
+console.log({age,currentYear,birthYear});
+if(age < 18 || age > 55){
+    document.getElementById('dob')
+  return  alert("Age must be between 18 and 55")
+
+}
+else
+{
+    document.getElementById('dob')
+
+    const input =
+    {
+        FullName,
+        email,
+        password,
+        dob,
+        terms
+     };
+     userEntries = retrieveEntries();
+     userEntries.push(input);
+     localStorage.setItem("userEntries",JSON.stringify(userEntries));
+     displayEntries();
+     userForm.reset();
+}
+};
+userForm.addEventListener('submit',saveUserForm)
+displayEntries()
