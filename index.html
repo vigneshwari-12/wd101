@@ -1,104 +1,149 @@
 
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <title>Registration Form</title>
+    <style>
+      input#name:invalid:focus {
+        border: 1px solid red;
+      }
+      input#email:invalid:focus {
+        border: 1px solid red;
+      }
+    </style> -->
+  </head>
 
-    h1 {
-      text-align: center;
-    }
+  <body>
+    <div
+      class="flex min-h-full flex-col justify-center overflow-hidden px-6 py-4 lg:px-8"
+    >
+      <div
+        class="sm:mx-auto sm:w-full bg-white px-6 pt-5 pb-5 shadow-xl ring-1 ring-gray-900/5 sm:max-w-lg sm:rounded-lg sm:px-10"
+      >
+        <div class="mx-auto max-w-md">
+          <h2 class="text-3xl text-center font-bold leading-tight">
+            Registration Form
+          </h2>
+          <div class="divide-y divide-gray-300/50">
+            <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+              <form id="user-form">
+                <label
+                  for="name"
+                  class="text-md w-40 inline-block font-medium leading-5 text-gray-700"
+                  >Name</label
+                >
+                <input
+                  required
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="bg-gray-100 inline-block rounded-lg shadow-md px-4 py-3 mb-5 text-base leading-6 placeholder-gray-500"
+                  placeholder="Enter full name"
+                /><br />
 
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+                <label
+                  for="email"
+                  class="text-md w-40 inline-block font-medium leading-5 text-gray-700"
+                  >Email</label
+                >
+                <input
+                  required
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="bg-gray-100 inline-block rounded-lg shadow-md px-4 py-3 mb-5 text-base leading-6 placeholder-gray-500"
+                  placeholder="Enter email"
+                /><br />
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
+                <label
+                  for="password"
+                  class="text-md w-40 inline-block font-medium leading-5 text-gray-700"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="bg-gray-100 inline-block rounded-lg shadow-md px-4 py-3 mb-5 text-base leading-6 placeholder-gray-500"
+                  placeholder="Enter password"
+                /><br />
 
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
+                <label
+                  for="dob"
+                  class="text-md w-40 inline-block font-medium leading-5 text-gray-700"
+                  >Date of Birth</label
+                >
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  class="bg-gray-100 inline-block rounded-lg shadow-md px-4 py-3 mb-5 text-base leading-6 placeholder-gray-500"
+                  placeholder="Enter dob"
+                /><br />
 
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
+                <label
+                  for="acceptTerms"
+                  class="text-md w-40 inline-block font-medium leading-5 text-gray-700"
+                  >Accept T&C</label
+                >
+                <input
+                  type="checkbox"
+                  id="acceptTerms"
+                  name="acceptTerms"
+                  class="bg-gray-100 inline-block rounded-lg shadow-md px-4 py-3 mb-5 text-base leading-6 placeholder-gray-500"
+                /><br />
 
-    table {
-      margin-top: 20px;
-      width: 100%;
-      border-collapse: collapse;
-    }
+                <button
+                  type="submit"
+                  id="submit"
+                  class="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="relative bg-white px-4 mt-5 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:rounded-lg sm:px-10"
+    >
+      <div class="mx-auto">
+        <h2 class="text-xl text-center font-bold leadin-right">Entries</h2>
+        <table class="table-auto w-full" id="user-entries">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">Name</th>
+              <th class="px-4 py-2">Email</th>
+              <th class="px-4 py-2">Password</th>
+              <th class="px-4 py-2">Dob</th>
+              <th class="px-4 py-2">Accepted terms?</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="index.js">
+      //   const email = document.getElementById("email");
+      //   email.addEventListener("input", () => validate(email));
 
-    table, th, td {
-      border: 1px solid #ccc;
-    }
+      //   const submit = document.getElementById("submit");
+      //   submit.addEventListener("click", () => validate(email));
 
-    th, td {
-      padding: 8px;
-      text-align: left;
-    }
-  </style>
-</head>
-<body>
-  <h1>Registration Form</h1>
-  <form id="registration-form">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required placeholder="Enter Full Name">
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" required placeholder="Enter Email Id">
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" required placeholder="Enter Password">
-    
-    <label for="dob">Date of Birth:</label>
-    <input type="date" id="dob" required placeholder="Enter DOB">
-    
-    <label>
-      <input type="checkbox" id="accept-terms">
-      I accept the terms and conditions.
-    </label>
-    
-    <button type="submit">Submit</button>
-  </form>
-  
-  <table id="data-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Dob</th>
-        <th>Accepted terms?</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  
-  <script src="index.js"></script>
-</body>
+      //   function validate(element) {
+      //     if (element.validity.typeMismatch) {
+      //       element.setCustomValidity("The Email is not in the right format!!!");
+      //       element.reportValidity();
+      //     } else {
+      //       element.setCustomValidity();
+      //     }
+      //   }
+    </script>
+  </body>
 </html>
